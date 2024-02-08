@@ -111,25 +111,25 @@
 <body>
     <div class="card">
         <div class="search">
-            <input type="text" placeholder="Enter City" spellcheck="false">
-            <button><img src="./images/search.png" alt=""></button>
+            <input type="text" class="cityname" id="InputCity" placeholder="Enter City" spellcheck="false">
+            <button id="button" onclick="clicked()"><img src="./images/search.png" alt=""></button>
         </div>
         <div class="disWeather">
             <img src="./images/clouds.png" class="wea-icon">
-            <h1 class="tem">22°C</h1>
-            <h2 class="city">Delhi</h2>
+            <h1 class="tem" id="temperature">22°C</h1>
+            <h2 class="city" id="displayCity">Enter City</h2>
             <div class="details">
                 <div class="col-1">
                     <img src="./images/humidity.png" alt="">
                     <div class="humid-info">
-                        <p class="humid">50%</p>
+                        <p class="humid" id="humidity">50%</p>
                         <p>Humidity</p>
                     </div>
                 </div>
                 <div class="col-2">
                     <img src="./images/wind.png" alt="">
                     <div class="wind-info">
-                        <p class="wind">12 kmph</p>
+                        <p class="wind" id="windspeed">12 kmph</p>
                         <p>Wind speed</p>
                     </div>
                     
@@ -139,6 +139,28 @@
 
     </div>
     <script>
+        const apiKey='31291ea632cb9b83a83c35eb8f4adfa2'
+        var city1 = document.getElementById('InputCity')
+        var city2=city1.value
+        async function weatherAPI(){
+            const response=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city2}&units=metric,&APPID=${apiKey}`)
+            var res=await response.json()
+            return res
+        }
+        
+        function clicked(res){
+            let api=weatherAPI()
+            let temperature=document.getElementById('InputCity')
+            let humidity=document.getElementById('humidity')
+            let windspeed=document.getElementById('windspeed')
+            displayCity.textContent=city2
+            temperature.textContent=api.main.temp
+            humidity.textContent=api.main.humidity
+            windspeed.textContent=api.wind.speed
+        }
+        
+        
+        
         
     </script>
     
